@@ -22,7 +22,7 @@ function getBook () {
              newDiv.innerHTML=
              `<div class="card" style="width: 18rem;">
              <img src="${bookImg}" class="card-img-top" alt="...">
-             <div class="card-body">
+             <div class="card-body d-flex flex-column justify-content-between">
                  <h5 class="card-title">${bookTitle}</h5>
                  <p class="card-text">€ ${bookPrice}</p>
                  <button onclick="addCart()" type="button" class="btn btn-primary">Add to cart</button>
