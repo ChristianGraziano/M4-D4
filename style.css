@@ -9,5 +9,16 @@ h5 {
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
+        text-align: center;
+        
+      
+}
+
+.card {
+    width: 18rem !important;
+}
+
+#book-container img {
+    height: 60%;
 }
 
