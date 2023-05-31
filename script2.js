@@ -42,7 +42,7 @@ function createTemplete(book) {
     bookPrice.classList.add("text-center", "fw-bold")
     
     let bookButtonCart = document.createElement('button');
-    bookButtonCart.classList.add("btn", "btn-info");
+    bookButtonCart.classList.add("btn", "btn-info", "mx-3");
     bookButtonCart.innerText =("Add To Cart");
     
     let bookButtonDetail = document.createElement('button');
