@@ -60,6 +60,19 @@ function createTemplete(book) {
 }
 
 function research() {
-    let searchFieldValue = searchField.ariaValueMax;
-    console.log(searchField);
+    
+    cicleResponse((book)
+        book.title
+        console.log(book.title)
+        if(searchFiel.value.lenght >=3){
+           searchFieldValue = searchField.value;
+           searchField.value = ""; //svuoti il campo di ricerca
+        }
+        else {
+            alert("Inserisci almeno 3 caratteri")
+        }
+
+    )
+    
+    
 }
