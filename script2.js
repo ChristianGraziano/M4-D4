@@ -5,23 +5,58 @@ const endPoint = "https://striveschool-api.herokuapp.com/books"
 // ELEMENTI DEL DOM
 let bookContainer = document.getElementById('book-container');
 let searchField = document.getElementById('search-field');
+let searchButton = document.getElementById('button-search');
+let alertFail = document.getElementById("alert-fail-search");
 
+
+ window.onload = getBook(); 
 
 // CHIAMATA API
-fetch(endPoint)
-.then((res) => res.json())
-.then((book) => {cicleResponse(book)}) 
-.catch((err) => {console.log(err)})
+  
+  function getBook() {
+  fetch(endPoint)
+  .then((res) => res.json())
+  .then((book) => {cicleResponse(book)}) 
+  .catch((err) => {console.log(err)})
+  }
 
-// FUNZIONE CHE CICLA IL JSON
-function cicleResponse(json) {
-    bookContainer.innerHTML ="";
-    json.forEach((book) => {
-      createTemplete(book);  
-    });
+
+  // FUNZIONE CHE CICLA IL JSON
+  function cicleResponse(json) {
+      bookContainer.innerHTML ="";
+      json.forEach((book) => {
+        createTemplete(book);  
+      });
+  }
+
+searchButton.addEventListener("click", makeSearch);
+
+// FUNZIONE DI RICERCA 
+async function makeSearch() {
+    let searchFieldValue = searchField.value.toLowerCase();
+     if (searchFieldValue.length >= 3) {
+        bookContainer.innerHTML=""; 
+        let promise = await fetch(endPoint);
+        let response = await promise.json();
+     
+     response.forEach((element) => {
+        let titleBook = element.title.toLowerCase();
+        if(titleBook.includes(searchFieldValue)) {
+            createTemplete(element);
+        }
+        else {
+            alertFail.classList.remove("d-none");
+            setTimeout(() => {
+                alertFail.classList.add("d-none");
+            }, 5000);
+        }
+     })
+     }
+     else {
+        alert("Inserisci almeno 3 caratteri!")
+     }
+     
 }
-
-
 
 
 
@@ -44,8 +79,9 @@ function createTemplete(book) {
     let bookButtonCart = document.createElement('button');
     bookButtonCart.classList.add("btn", "btn-info", "mx-3");
     bookButtonCart.innerText =("Add To Cart");
+    bookButtonCart.addEventListener("click", () => { addToCart(book) });
     
-    let bookButtonDetail = document.createElement('button');
+    let bookButtonDetail = document.createElement('a');
     bookButtonDetail.classList.add("btn", "btn-success", "mx-5", "my-2")
     bookButtonDetail.innerText =("Details");
 
@@ -59,20 +95,10 @@ function createTemplete(book) {
 
 }
 
-function research() {
-    
-    cicleResponse((book)
-        book.title
-        console.log(book.title)
-        if(searchFiel.value.lenght >=3){
-           searchFieldValue = searchField.value;
-           searchField.value = ""; //svuoti il campo di ricerca
-        }
-        else {
-            alert("Inserisci almeno 3 caratteri")
-        }
 
-    )
+
+        
+
     
     
-}
+    
