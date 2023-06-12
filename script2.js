@@ -7,6 +7,7 @@ let bookContainer = document.getElementById('book-container');
 let searchField = document.getElementById('search-field');
 let searchButton = document.getElementById('button-search');
 let alertFail = document.getElementById("alert-fail-search");
+let contentCart = document.getElementById("modal-body");
 
 
  window.onload = getBook(); 
@@ -58,6 +59,25 @@ async function makeSearch() {
      
 }
 
+//! FUNZONE PER AGGIUNGERE AL CARRELLO 
+
+let buttonCart = document.getElementsByClassName('button-cart');
+
+
+async function addToCart() {
+        let promise = await fetch(endPoint);
+        let response = await promise.json();
+        response.forEach((cartBook) => {
+            
+            let cartItem = document.createElement('li');
+
+            // let titleItem = document.createElement('span');
+            cartItem.innerText = cartBook.title;
+
+            // cartItem.appendChild(titleItem);
+            contentCart.appendChild(cartItem);
+        });
+}
 
 
 // FUNZIONE CREAZIONE ELEMENTI CARD
@@ -77,9 +97,8 @@ function createTemplete(book) {
     bookPrice.classList.add("text-center", "fw-bold")
     
     let bookButtonCart = document.createElement('button');
-    bookButtonCart.classList.add("btn", "btn-info", "mx-3");
+    bookButtonCart.classList.add("btn", "btn-info", "mx-3", "button-cart");
     bookButtonCart.innerText =("Add To Cart");
-    bookButtonCart.addEventListener("click", () => { addToCart(book) });
     
     let bookButtonDetail = document.createElement('a');
     bookButtonDetail.classList.add("btn", "btn-success", "mx-5", "my-2")
